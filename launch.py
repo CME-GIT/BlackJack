@@ -3,13 +3,10 @@
 import BlackJack_Main as main
 import print_functions as pf
 
-#_setup
-
-
-
-
 
 def Game():
+	
+	#_StartValues
 	endgame=False
 	Deck=[2,3,4,5,6,7,8,9,10,'J','Q','K','A']*4
 	dealer_hand=[]
@@ -17,7 +14,7 @@ def Game():
 	print(f'You have {Credits["bank"]}$')
 
 
-
+	#_place bet
 	while True:
 		bet_input=input('place bet:	')
 		if not bet_input.isdigit():
@@ -46,7 +43,7 @@ def Game():
 	print(' Your Hand:')
 	print(pf.DisplayCards(player_hand))
 
-
+    #BlackJack!
 	if player_points==21:
 		if player_points==main.count_cards(dealer_hand):
 			print('\n Dealer Hand:')
@@ -69,18 +66,10 @@ def Game():
 			print(f'Blackjack! You won {Credits["bet"]} $. You own : : {Credits["bank"]}')
 			endgame=True
 
-		
-		
-
-	if player_points>21:
-		main.result('',player_points,Credits)
-		endgame=True
-		
-
 	#_Game
 	while endgame==False:
 		
-		#_Player Choice
+		#_Players Choice
 		Choice=input('\n [1]Hit [2]stand [3] Fold or [4] Split?  \n\n ')	
 		if Choice not in ('1','2','3','4'):
 			print ('\n please enter a valid choice to continue')
@@ -111,9 +100,6 @@ def Game():
 						break
 					continue
 				
-					
-					
-
 				if c_hit=='2':
 					
 					dealer_hand=main.dealer_play(dealer_hand,Deck)
@@ -166,7 +152,7 @@ def Game():
 				DeckA.append(Deck.pop())
 				DeckB.append(Deck.pop())
 				
-				#build Print String
+				#build Print String for split
 				Da_list=pf.DisplayCards(DeckA).split('\n')
 				Db_list=pf.DisplayCards(DeckB).split('\n')
 				for line in range(0,7):
@@ -181,8 +167,9 @@ def Game():
 				dealer_hand=main.dealer_play(dealer_hand,Deck)
 				dealer_points=main.count_cards(dealer_hand)
 				
+				#_print cards
 				print('\n Dealer Hand:')
-				print(print(pf.DisplayCards(dealer_hand)))
+				print(pf.DisplayCards(dealer_hand))
 
 				print('\n Your Hand:')
 				print (printline)
@@ -201,13 +188,11 @@ def Game():
 
 
 
-
-
+#_GAME
 Credits={'bank':100, 'bet':0}
-credits=100
-
-
 print('Welcome to the table!')
+
+
 while True:
 	Game()
 	#question restart
@@ -220,7 +205,7 @@ while True:
 			break
 	if Choice=='1':
 		if Credits['bank']<=0:
-			print("You're broke!,Come back with more money")
+			print("You're broke!,Goodbye")
 			break
 		else:
 			continue
